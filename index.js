@@ -1,21 +1,24 @@
-function addTwoNumbers(l1, l2) {
-  const dummy = new ListNode(0);
-  let p = l1,
-    q = l2,
-    curr = dummy;
-  let carry = 0;
-  while (p !== null || q !== null) {
-    const x = p !== null ? p.val : 0;
-    const y = q !== null ? q.val : 0;
-    const sum = x + y + carry;
-    carry = Math.floor(sum / 10);
-    curr.next = new ListNode(sum % 10);
-    curr = curr.next;
-    if (p !== null) p = p.next;
-    if (q !== null) q = q.next;
+function isValidSudoku(board) {
+  const rows = Array(9)
+    .fill()
+    .map(() => new Set());
+  const cols = Array(9)
+    .fill()
+    .map(() => new Set());
+  const boxes = Array(9)
+    .fill()
+    .map(() => new Set());
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      const num = board[i][j];
+      if (num === ".") continue;
+      const boxIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3);
+      if (rows[i].has(num) || cols[j].has(num) || boxes[boxIndex].has(num))
+        return false;
+      rows[i].add(num);
+      cols[j].add(num);
+      boxes[boxIndex].add(num);
+    }
   }
-  if (carry > 0) {
-    curr.next = new ListNode(carry);
-  }
-  return dummy.next;
+  return true;
 }
