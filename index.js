@@ -1,24 +1,14 @@
-function isValidSudoku(board) {
-  const rows = Array(9)
-    .fill()
-    .map(() => new Set());
-  const cols = Array(9)
-    .fill()
-    .map(() => new Set());
-  const boxes = Array(9)
-    .fill()
-    .map(() => new Set());
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      const num = board[i][j];
-      if (num === ".") continue;
-      const boxIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3);
-      if (rows[i].has(num) || cols[j].has(num) || boxes[boxIndex].has(num))
-        return false;
-      rows[i].add(num);
-      cols[j].add(num);
-      boxes[boxIndex].add(num);
+function selectionSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[minIndex]) minIndex = j;
+    }
+    if (minIndex !== i) {
+      let temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;
     }
   }
-  return true;
+  return arr;
 }
