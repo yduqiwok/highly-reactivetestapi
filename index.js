@@ -1,14 +1,9 @@
-function connect(root) {
-  if (!root) return root;
-  let levelStart = root;
-  while (levelStart) {
-    let curr = levelStart;
-    while (curr) {
-      if (curr.left) curr.left.next = curr.right;
-      if (curr.right && curr.next) curr.right.next = curr.next.left;
-      curr = curr.next;
-    }
-    levelStart = levelStart.left;
+function canJump(nums) {
+  let maxJump = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (i > maxJump) return false;
+    maxJump = Math.max(maxJump, i + nums[i]);
+    if (maxJump >= nums.length - 1) return true;
   }
-  return root;
+  return false;
 }
